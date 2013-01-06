@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new Iga\BuilderBundle\IgaBuilderBundle(),
             new Role\StoreBundle\RoleStoreBundle(),
+            new Core\UserBundle\CoreUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

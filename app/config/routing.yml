@@ -1,4 +1,13 @@
+role_store:
+    resource: "@RoleStoreBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 # Internal routing configuration to handle ESI
 #_internal:
 #    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
 #    prefix:   /_internal
+iga_builder:
+    resource: "@IgaBuilderBundle/Controller/"
+    type:     annotation
+    prefix:   /builder

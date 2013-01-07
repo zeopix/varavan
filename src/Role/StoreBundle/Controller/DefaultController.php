@@ -16,4 +16,15 @@ class DefaultController extends Controller
     {
         return array('name' => $name);
     }
+	
+	
+	/**
+	* @Route("/terkminiosycondiciones",name="controller_terminiosycondiciones")
+	* @Template()
+	*/
+	public function terminiosycondicionesAction()
+	{
+		
+	}
+	
 }

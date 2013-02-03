@@ -1,0 +1,16 @@
+{% extends 'RoleStoreBundle::layout.html.twig' %}
+{% set active = "offers" %}
+{% block pageContainer %}
+<div class="container">
+  <div class="row">
+  <div class="span12 header">
+      {% block header %}
+      {% endblock %}
+      <h4>Ofertas</h4>
+    </div>
+
+    {% block panel %}
+    {% endblock %}
+</div>
+</div>
+{% endblock %}

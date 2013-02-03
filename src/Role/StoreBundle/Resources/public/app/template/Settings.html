@@ -1,0 +1,52 @@
+<!-- Make sure all your bars are the first things in your <body> -->
+      <header class="bar-title">
+        <h1 class="title">Mi Cuenta</h1>
+      </header>
+
+      <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+      <div class="content">
+       <div class="content-padded">
+      <ul class="list inset">
+        <li>
+
+            <div style="float:left">
+      <img width="60px" height="60px" src="http://beta.medibaby.net/<%= me.webPath %>" style="border:1px solid;">
+      </div>
+      <div style="float:left; font-size: 18px; margin-left: 20px;">
+      <%= me.name %> <%= me.surname %><br>
+      <small><%= me.email %></small>
+      </div>
+      <div style="clear:both"></div>
+
+  </li>
+</ul>
+      
+<br><br>
+
+        <a class="button button-block logout" >Desconexión</a>
+      </div>
+      </div>
+
+
+           <nav class="bar-tab">
+  <ul class="tab-inner">
+    <li class="tab-item chats">
+      <a href="#chats">
+        <img class="tab-icon" src="assets/img/icon-messages.png">
+        <div class="tab-label">Chats</div>
+      </a>
+    </li>
+    <li class="tab-item contacts">
+      <a href="#contacts">
+        <img class="tab-icon" src="assets/img/icon-profile.png">
+        <div class="tab-label">Contactos</div>
+      </a>
+    </li>
+    <li class="tab-item active settings">
+      <a href="#settings">
+        <img class="tab-icon" src="assets/img/icon-settings.png">
+        <div class="tab-label">Cuenta</div>
+      </a>
+    </li>
+  </ul>
+</nav>

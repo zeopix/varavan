@@ -1,0 +1,40 @@
+{% extends 'RoleAdminBundle::layout.html.twig' %}
+{% set active = "stores" %}
+{% block pageContainer %}
+<div class="container">
+<div class="row">
+    <div class="span12">
+<a href="{{ path('admin_store_new') }}" class="btn btn-primary pull-right">Registrar Tienda</a>
+<h4 class="header">Tiendas</h4>
+<table class="table table-striped sortable">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>N. Legal</th>
+            <th>Slug (Link)</th>
+            <th>Email</th>
+            <th>Fecha Registro</th>
+            <th>#</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>{{ entity.publicName }}</td>
+            <td>{{ entity.legalName }}</td>
+            <td>{{ entity.slugName }}</td>
+            <td>{{ entity.user.email }}</td>
+            <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>
+                        <a class="btn btn-small" href="{{ path('admin_store_show', { 'id': entity.id }) }}">show</a>
+
+                        <a class="btn btn-small" href="{{ path('admin_store_edit', { 'id': entity.id }) }}">edit</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+</div>
+{% endblock %}

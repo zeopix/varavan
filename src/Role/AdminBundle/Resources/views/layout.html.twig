@@ -1,0 +1,15 @@
+{% extends '::layout.html.twig' %}
+
+    {% block subNavigation %}
+    <div id="in-sub-nav">
+      <div class="container">
+        <div class="row">
+          <div class="span12">
+            <ul>
+              <li><a{% if active == 'stores'%} class="active"{% endif %} href="{{ path('admin_store') }}"><i class="batch home"></i><br>Tiendas</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock %}

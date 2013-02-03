@@ -1,0 +1,17 @@
+{% extends 'RoleStoreBundle:Offer:layout.html.twig' %}
+{% form_theme form 'RoleStoreBundle:Default:form_theme.html.twig' %}
+{% block panel %}
+    <div class="span6">
+      <form class="form-horizontal" action="{{ path('ofertas_create') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+      </form>
+    </div>
+    <div class="span6">
+      <p>If you want to change your email or password please remember to do these three things.</p>
+      <ul>
+        <li>The first thing you should do is this</li>
+        <li>The second thing is probably this</li>
+        <li>There isn't actually a third thing</li>
+      </ul>
+    </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends '::layout.html.twig' %}
+
+    {% block subNavigation %}
+    <div id="in-sub-nav">
+      <div class="container">
+        <div class="row">
+          <div class="span12">
+            <ul>
+              <li><a{% if active == 'dashboard'%} class="active"{% endif %} href="{{ path('store') }}"><i class="batch home"></i><br>General</a></li>
+              <li><a{% if active == 'offers'%} class="active"{% endif %} href="{{ path('ofertas') }}"><i class="batch quill"></i><br>Ofertas</a></li>
+              <li><a{% if active == 'consumers'%} class="active"{% endif %} href="users.html"><i class="batch users"></i><br>Clientes</a></li>
+              <li><a{% if active == 'codes'%} class="active"{% endif %} href="stream.html"><i class="batch stream"></i><br>Códigos</a></li>
+              <li><a{% if active == 'settings'%} class="active"{% endif %} href="settings.html"><i class="batch settings"></i><br>Mi Tienda</a></li>
+              <li><a{% if active == 'help'%} class="active"{% endif %} href="faq.html"><i class="batch forms"></i><br>Ayuda</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock %}

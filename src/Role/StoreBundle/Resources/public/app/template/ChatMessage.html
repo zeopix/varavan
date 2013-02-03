@@ -1,0 +1,9 @@
+<% if (user == message.sender ) { %>
+<div style="text-align: right;">
+<%= message.message %>
+</div>
+<% }else{ %>
+<div style="text-align: left;">
+<%= message.message %>
+</div>
+<% } %>

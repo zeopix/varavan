@@ -1,0 +1,30 @@
+{% extends 'RoleStoreBundle:Offer:layout.html.twig' %}
+
+{% block header %}
+<a class="btn btn-primary pull-right" href="{{ path('ofertas_new') }}">Nueva Oferta</a>
+{% endblock %}
+{% block body %}
+
+    <div class="span4">
+        <!-- classes: active, new -->
+      <div class="message-sidebar">
+
+    {% for entity in entities %}
+
+      <a href="{{ path('ofertas_show', { 'id': entity.id }) }}" class="message-preview new">
+          <p class="pull-right">{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</p>
+          <h4>{{ entity.title }}</h4>
+          <h5 class="sub">FROM $5</h5>
+          <p>{{ entity.description }}</p></a>
+    {% endfor %}
+
+        <div class="load-more"><a href="#">Cargar Más</a></div>
+      </div>
+    </div>
+    <div class="span8">
+      <div class="messages">
+        <h4 class="header">No ha seleccionado ninuna de sus promociones.</h4>
+        </div>
+      </div>
+    </div>
+{% endblock %}

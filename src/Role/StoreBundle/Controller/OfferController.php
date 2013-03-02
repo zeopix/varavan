@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Role\StoreBundle\Entity\Offer;
+use Role\StoreBundle\Document\Offer;
 use Role\StoreBundle\Form\OfferType;
 
 /**
@@ -26,9 +26,11 @@ class OfferController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+                $dm = $this->get('doctrine_mongodb')->getManager();
 
-        $entities = $em->getRepository('RoleStoreBundle:Offer')->findAll();
+        $entities =         $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+$dm->getRepository('RoleStoreBundle:Offer')->findAll();
 
         return array(
             'entities' => $entities,
@@ -49,9 +51,15 @@ class OfferController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+                    $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+$dm = $this->get('doctrine_mongodb')->getManager();
+                    $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+$dm->persist($entity);
+                    $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+$dm->flush();
 
             return $this->redirect($this->generateUrl('ofertas_show', array('id' => $entity->getId())));
         }
@@ -89,9 +97,13 @@ class OfferController extends Controller
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+                $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+$dm = $this->get('doctrine_mongodb')->getManager();
 
-        $entity = $em->getRepository('RoleStoreBundle:Offer')->find($id);
+        $entity =         $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+$dm->getRepository('RoleStoreBundle:Offer')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Offer entity.');
@@ -114,9 +126,13 @@ class OfferController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+                $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+$dm = $this->get('doctrine_mongodb')->getManager();
 
-        $entity = $em->getRepository('RoleStoreBundle:Offer')->find($id);
+        $entity =         $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+$dm->getRepository('RoleStoreBundle:Offer')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Offer entity.');
@@ -141,9 +157,13 @@ class OfferController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+                $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+$dm = $this->get('doctrine_mongodb')->getManager();
 
-        $entity = $em->getRepository('RoleStoreBundle:Offer')->find($id);
+        $entity =         $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+$dm->getRepository('RoleStoreBundle:Offer')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Offer entity.');
@@ -154,8 +174,12 @@ class OfferController extends Controller
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
-            $em->flush();
+                    $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+$dm->persist($entity);
+                    $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+$dm->flush();
 
             return $this->redirect($this->generateUrl('ofertas_edit', array('id' => $id)));
         }
@@ -179,15 +203,23 @@ class OfferController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('RoleStoreBundle:Offer')->find($id);
+                    $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+$dm = $this->get('doctrine_mongodb')->getManager();
+            $entity =         $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+$dm->getRepository('RoleStoreBundle:Offer')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Offer entity.');
             }
 
-            $em->remove($entity);
-            $em->flush();
+                    $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+$dm->remove($entity);
+                    $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+$dm->flush();
         }
 
         return $this->redirect($this->generateUrl('ofertas'));

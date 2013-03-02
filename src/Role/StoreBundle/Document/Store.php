@@ -1,62 +1,62 @@
 <?php
 
-namespace Role\StoreBundle\Entity;
+namespace Role\StoreBundle\Document;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * Store
- *
- * @ORM\Table()
- * @ORM\Entity
+ * @MongoDB\Document
  */
 class Store
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @MongoDB\Id(strategy="auto")
      */
     private $id;
 
 
-    /** @ORM\OneToOne(targetEntity="Core\UserBundle\Entity\User") */
-    protected $user;
+    /** @MongoDB\ReferenceMany(targetDocument="Offer", mappedBy="store") */
+    private $offers;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="public_name", type="string", length=255)
+    * @MongoDB\ReferenceOne(
+    *      targetDocument="Core\UserBundle\Document\User",
+    *      mappedBy="role_store"
+    * )
+    */
+    private $user;
+
+
+    /**
+     * @MongoDB\String(name="public_name", type="string")
      */
     private $publicName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="legal_name", type="string", length=255)
+     * @MongoDB\Field(name="legal_name", type="string")
      */
     private $legalName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="slug_name", type="string", length=255)
+     * @MongoDB\Field(name="slug_name", type="string")
      */
     private $slugName;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @MongoDB\Field(name="created_at", type="date")
      */
     private $createdAt;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_at", type="datetime")
+     * @MongoDB\Field(name="updated_at", type="date")
      */
     private $updatedAt;
 
@@ -196,7 +196,7 @@ class Store
      * @param \Core\UserBundle\Entity\User $user
      * @return Store
      */
-    public function setUser(\Core\UserBundle\Entity\User $user = null)
+    public function setUser(\Core\UserBundle\Document\User $user = null)
     {
         $this->user = $user;
     

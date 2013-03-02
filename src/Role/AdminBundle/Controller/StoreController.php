@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Role\StoreBundle\Entity\Store;
+use Role\StoreBundle\Document\Store;
 use Role\AdminBundle\Form\StoreType;
 
 /**
@@ -26,9 +26,9 @@ class StoreController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+         $dm = $this->get('doctrine_mongodb')->getManager();
 
-        $entities = $em->getRepository('RoleStoreBundle:Store')->findAll();
+        $entities = $dm->getRepository('RoleStoreBundle:Store')->findAll();
 
         return array(
             'entities' => $entities,
@@ -61,12 +61,12 @@ class StoreController extends Controller
             $form->bind($request);
 
             if ($form->isValid()) {
-                $em = $this->getDoctrine()->getEntityManager();
+                $dm = $this->get('doctrine_mongodb')->getManager();
                 $entity->getUser()->addRole("ROLE_STORE");
                 $entity->getUser()->addRole("ROLE_USER");
                 $userManager->updateUser($entity->getUser());
-                $em->persist($entity);
-                $em->flush();
+                $dm->persist($entity);
+                $dm->flush();
 
                 //set flash
                 $this->getRequest()->getSession()->setFlash('message','Store created correctly.');
@@ -107,9 +107,9 @@ class StoreController extends Controller
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
 
-        $entity = $em->getRepository('RoleStoreBundle:Store')->find($id);
+        $entity = $dm->getRepository('RoleStoreBundle:Store')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Store entity.');
@@ -132,9 +132,9 @@ class StoreController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
 
-        $entity = $em->getRepository('RoleStoreBundle:Store')->find($id);
+        $entity = $dm->getRepository('RoleStoreBundle:Store')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Store entity.');
@@ -159,9 +159,9 @@ class StoreController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
 
-        $entity = $em->getRepository('RoleStoreBundle:Store')->find($id);
+        $entity = $dm->getRepository('RoleStoreBundle:Store')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Store entity.');
@@ -172,7 +172,7 @@ class StoreController extends Controller
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $dm->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_store_edit', array('id' => $id)));
@@ -197,15 +197,15 @@ class StoreController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('RoleStoreBundle:Store')->find($id);
+        $dm = $this->get('doctrine_mongodb')->getManager();
+            $entity = $dm->getRepository('RoleStoreBundle:Store')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Store entity.');
             }
 
-            $em->remove($entity);
-            $em->flush();
+            $dm->remove($entity);
+            $dm->flush();
         }
 
         return $this->redirect($this->generateUrl('admin_store'));

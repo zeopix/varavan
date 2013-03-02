@@ -1,81 +1,75 @@
 <?php
 
-namespace Role\StoreBundle\Entity;
+namespace Role\StoreBundle\Document;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * Offer
- *
- * @ORM\Table()
- * @ORM\Entity
+ * @MongoDB\Document
  */
 class Offer
 {
     /**
-     * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @MongoDB\Id
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @MongoDB\Field(name="title", type="string")
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @MongoDB\Field(name="description", type="string")
      */
     private $description;
 
     /**
-     * @var array
      *
-     * @ORM\Column(name="pricing", type="array")
-     */
-    private $pricing;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="stock_limit", type="integer")
+     * @MongoDB\Field(name="stock_limit", type="int")
      */
     private $stockLimit;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="time_limit", type="datetime",nullable=true)
+     * @MongoDB\Field(name="time_limit", type="date")
      */
     private $timeLimit;
 
     /**
+     * @MongoDB\Field(name="price", type="string")
+     */
+    private $price;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="path", type="string", length=255)
+     * @MongoDB\Field(name="path", type="string")
      */
     private $path;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @MongoDB\Field(name="created_at", type="date")
      */
     private $createdAt;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_at", type="datetime")
+     * @MongoDB\Field(name="updated_at", type="date")
      */
     private $updatedAt;
+
+    /** @MongoDB\ReferenceOne(targetDocument="Store", inversedBy="offers") */
+    private $store;
 
 
     /**
@@ -140,9 +134,9 @@ class Offer
      * @param array $pricing
      * @return Offer
      */
-    public function setPricing($pricing)
+    public function setPrice($pricing)
     {
-        $this->pricing = $pricing;
+        $this->price = $pricing;
     
         return $this;
     }
@@ -152,9 +146,9 @@ class Offer
      *
      * @return array 
      */
-    public function getPricing()
+    public function getPrice()
     {
-        return $this->pricing;
+        return $this->price;
     }
 
     /**
@@ -271,4 +265,5 @@ class Offer
     {
         return $this->updatedAt;
     }
+
 }

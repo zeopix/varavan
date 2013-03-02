@@ -14,14 +14,14 @@ class StoreType extends AbstractType
             ->add('publicName')
             ->add('legalName')
             ->add('slugName')
-            ->add('user', new RegistrationType('Core\UserBundle\Entity\User'))
+            ->add('user', new RegistrationType('Core\UserBundle\Document\User'))
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Role\StoreBundle\Entity\Store'
+            'data_class' => 'Role\StoreBundle\Document\Store'
         ));
     }
 

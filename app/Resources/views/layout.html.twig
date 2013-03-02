@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="description" content="description of your site">
+    <meta name="author" content="author of the site">
+    <title>IndustryApp Template</title>
+    <link rel="stylesheet" href="{{ asset('bundles/rolestore/component/bootstrap/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/rolestore/component/bootstrap/css/bootstrap-responsive.css') }}">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic">
+    <link rel="stylesheet" href="{{ asset('bundles/rolestore/component/bootstrap/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/rolestore/component/bootstrap/css/toastr.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/rolestore/component/bootstrap/css/fullcalendar.css') }}">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/rolestore/component/bootstrap/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('bundles/rolestore/component/bootstrap/js/jquery.knob.js') }}"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="{{ asset('bundles/rolestore/component/bootstrap/js/jquery.sparkline.min.js') }}"></script>
+    <script src="{{ asset('bundles/rolestore/component/bootstrap/js/toastr.js') }}"></script>
+    <script src="{{ asset('bundles/rolestore/component/bootstrap/js/jquery.tablesorter.min.js') }}"></script>
+    <script src="{{ asset('bundles/rolestore/component/bootstrap/js/jquery.peity.min.js') }}"></script>
+    <script src="{{ asset('bundles/rolestore/component/bootstrap/js/fullcalendar.min.js') }}"></script>
+    <script src="{{ asset('bundles/rolestore/component/bootstrap/js/gcal.js') }}"></script>
+    <script src="{{ asset('bundles/rolestore/component/bootstrap/js/setup.js') }}"></script>
+  </head>
+
+  <body>
+
+    <body>
+    <div id="in-nav">
+      <div class="container">
+        <div class="row">
+          <div class="span12">
+            <a id="logo" href="index.html">
+              {% if is_granted('ROLE_USER') %}
+                <ul class="pull-right"><li><a href="{{ path('fos_user_security_logout') }}">Desconexión</a></li></ul>
+              {% endif %}
+              <h4>V<strong>aravan</strong></h4></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% block subNavigation %}
+    {% endblock %}
+    <div class="page">
+      <div class="page-container">
+        {% block pageContainer %}
+        {% endblock %}
+
+      </div>
+    </div>
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="span12">
+            <p class="pull-right">Powered by <a href="http://3media.es">3media.es</a></p>
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>

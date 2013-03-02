@@ -25,6 +25,8 @@ class AppKernel extends Kernel
             new Role\ConsumerBundle\RoleConsumerBundle(),
             new Role\GuestBundle\RoleGuestBundle(),
             new Role\AdminBundle\RoleAdminBundle(),
+            new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

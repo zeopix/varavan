@@ -13,7 +13,7 @@ class OfferType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('pricing')
+            ->add('price','money')
             ->add('stockLimit')
             ->add('timeLimit')
             ->add('path')
@@ -23,7 +23,7 @@ class OfferType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Role\StoreBundle\Entity\Offer'
+            'data_class' => 'Role\StoreBundle\Document\Offer'
         ));
     }
 

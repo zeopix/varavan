@@ -34,17 +34,17 @@
 
 <ul class="record_actions">
     <li>
-        <a href="{{ path('admin_store') }}">
+        <a href="{{ path('role_admin_store') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('admin_store_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('role_admin_store_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>
     <li>
-        <form action="{{ path('admin_store_delete', { 'id': entity.id }) }}" method="post">
+        <form action="{{ path('role_admin_store_delete', { 'id': entity.id }) }}" method="post">
             <input type="hidden" name="_method" value="DELETE" />
             {{ form_widget(delete_form) }}
             <button type="submit">Delete</button>

@@ -20,7 +20,7 @@ class StoreController extends Controller
     /**
      * Lists all Store entities.
      *
-     * @Route("/", name="admin_store")
+     * @Route("/", name="role_admin_store")
      * @Method("GET")
      * @Template()
      */
@@ -38,7 +38,7 @@ class StoreController extends Controller
     /**
      * Creates a new Store entity.
      *
-     * @Route("/create", name="admin_store_create")
+     * @Route("/create", name="role_admin_store_create")
      * @Method("POST")
      */
     public function createAction(Request $request)
@@ -54,6 +54,8 @@ class StoreController extends Controller
         $user = $userManager->createUser();
         $user->setEnabled(true);
         $entity->setUser($user);
+        $user->addRole("ROLE_USER");
+        $user->addRole("ROLE_STORE");
 
         $form = $this->createForm(new StoreType(), $entity);
         
@@ -61,29 +63,33 @@ class StoreController extends Controller
             $form->bind($request);
 
             if ($form->isValid()) {
+                $user = $entity->getUser();
+                $user->setRoleStore($entity);
+
+                $userManager->updateUser($user);
+                $entity->setUser($user);
+                
                 $dm = $this->get('doctrine_mongodb')->getManager();
-                $entity->getUser()->addRole("ROLE_STORE");
-                $entity->getUser()->addRole("ROLE_USER");
-                $userManager->updateUser($entity->getUser());
                 $dm->persist($entity);
                 $dm->flush();
 
                 //set flash
                 $this->getRequest()->getSession()->setFlash('message','Store created correctly.');
-                return $this->redirect($this->generateUrl("admin_store"));
+                return $this->redirect($this->generateUrl("role_admin_store"));
             }
         }
 
         return $this->render('RoleStoreBundle:Store:new.html.twig',array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'user'=>$user
         ));
     }
 
     /**
      * Displays a form to create a new Store entity.
      *
-     * @Route("/new", name="admin_store_new")
+     * @Route("/new", name="role_admin_store_new")
      * @Method("GET")
      * @Template()
      */
@@ -101,7 +107,7 @@ class StoreController extends Controller
     /**
      * Finds and displays a Store entity.
      *
-     * @Route("/{id}", name="admin_store_show")
+     * @Route("/{id}", name="role_admin_store_show")
      * @Method("GET")
      * @Template()
      */
@@ -126,7 +132,7 @@ class StoreController extends Controller
     /**
      * Displays a form to edit an existing Store entity.
      *
-     * @Route("/{id}/edit", name="admin_store_edit")
+     * @Route("/{id}/edit", name="role_admin_store_edit")
      * @Method("GET")
      * @Template()
      */
@@ -153,7 +159,7 @@ class StoreController extends Controller
     /**
      * Edits an existing Store entity.
      *
-     * @Route("/{id}", name="admin_store_update")
+     * @Route("/{id}", name="role_admin_store_update")
      * @Method("PUT")
      * @Template("RoleStoreBundle:Store:edit.html.twig")
      */
@@ -175,7 +181,7 @@ class StoreController extends Controller
             $dm->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_store_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('role_admin_store_edit', array('id' => $id)));
         }
 
         return array(
@@ -188,7 +194,7 @@ class StoreController extends Controller
     /**
      * Deletes a Store entity.
      *
-     * @Route("/{id}", name="admin_store_delete")
+     * @Route("/{id}", name="role_admin_store_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -208,7 +214,7 @@ class StoreController extends Controller
             $dm->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_store'));
+        return $this->redirect($this->generateUrl('role_admin_store'));
     }
 
     /**

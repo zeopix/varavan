@@ -15,11 +15,8 @@ class User extends BaseUser
     protected $id;
 
     /**
- 	* @MongoDB\ReferenceOne(
- 	*      targetDocument="Role\StoreBundle\Document\Store",
- 	*      mappedBy="user"
- 	* )
- 	*/
+     * @MongoDB\ReferenceOne(targetDocument="Role\StoreBundle\Document\Store", mappedBy="user")
+     */
 	private $role_store;
 
     public function __construct()

@@ -1,59 +1,62 @@
 <?php
 
-namespace Role\StoreBundle\Document;
+namespace Role\StoreBundle\Entity;
 
-use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @MongoDB\Document
+ * Store
+ *
+ * @ORM\Table()
+ * @ORM\Entity
  */
 class Store
 {
     /**
-     * @MongoDB\Id(strategy="auto")
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
 
-    /** @MongoDB\ReferenceMany(targetDocument="Offer", mappedBy="store") */
-    private $offers;
+    /** @ORM\OneToOne(targetEntity="Core\UserBundle\Entity\User") */
+    protected $user;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Core\UserBundle\Document\User", inversedBy="role_store")
-     */
-    private $user;
-
-
-    /**
-     * @MongoDB\String(name="public_name", type="string")
+     * @var string
+     *
+     * @ORM\Column(name="public_name", type="string", length=255)
      */
     private $publicName;
 
     /**
      * @var string
      *
-     * @MongoDB\Field(name="legal_name", type="string")
+     * @ORM\Column(name="legal_name", type="string", length=255)
      */
     private $legalName;
 
     /**
      * @var string
      *
-     * @MongoDB\Field(name="slug_name", type="string")
+     * @ORM\Column(name="slug_name", type="string", length=255)
      */
     private $slugName;
 
     /**
      * @var \DateTime
      *
-     * @MongoDB\Field(name="created_at", type="date")
+     * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
 
     /**
      * @var \DateTime
      *
-     * @MongoDB\Field(name="updated_at", type="date")
+     * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updatedAt;
 
@@ -193,7 +196,7 @@ class Store
      * @param \Core\UserBundle\Entity\User $user
      * @return Store
      */
-    public function setUser(\Core\UserBundle\Document\User $user = null)
+    public function setUser(\Core\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
     

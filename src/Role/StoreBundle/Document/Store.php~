@@ -15,13 +15,12 @@ class Store
     private $id;
 
 
+    /** @MongoDB\ReferenceMany(targetDocument="Offer", mappedBy="store") */
+    private $offers;
 
     /**
-    * @MongoDB\ReferenceOne(
-    *      targetDocument="\Core\UserBundle\Document\User",
-    *      mappedBy="role_store"
-    * )
-    */
+     * @MongoDB\ReferenceOne(targetDocument="Core\UserBundle\Document\User", inversedBy="role_store")
+     */
     private $user;
 
 

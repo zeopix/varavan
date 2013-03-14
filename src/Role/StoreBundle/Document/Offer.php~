@@ -3,6 +3,7 @@
 namespace Role\StoreBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @MongoDB\Document
@@ -10,9 +11,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 class Offer
 {
     /**
-     * @var integer
      *
-     * @MongoDB\Field(name="id", type="integer")
+     * @MongoDB\Id
      */
     private $id;
 
@@ -31,9 +31,8 @@ class Offer
     private $description;
 
     /**
-     * @var integer
      *
-     * @MongoDB\Field(name="stock_limit", type="integer")
+     * @MongoDB\Field(name="stock_limit", type="int")
      */
     private $stockLimit;
 
@@ -43,6 +42,11 @@ class Offer
      * @MongoDB\Field(name="time_limit", type="date")
      */
     private $timeLimit;
+
+    /**
+     * @MongoDB\Field(name="price", type="string")
+     */
+    private $price;
 
     /**
      * @var string
@@ -64,6 +68,57 @@ class Offer
      * @MongoDB\Field(name="updated_at", type="date")
      */
     private $updatedAt;
+
+    /** @MongoDB\ReferenceOne(targetDocument="Store", inversedBy="offers") */
+    private $store;
+
+    /*
+     * @Assert\File(maxSize="6000000")
+    */
+    private $file;
+
+    public function getAbsolutePath()
+    {
+        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/offers';
+    }
+
+    public function upload(){
+        // the file property can be empty if the field is not required
+        if (null === $this->file) {
+            return;
+        }
+        // set the path property to the filename where you've saved the file
+        $filename = sha1(uniqid(mt_rand(), true));
+        $this->path = $filename.'.'.$this->file->guessExtension();
+        
+        $this->file->move(
+            $this->getUploadRootDir(),
+            $this->path
+        );
+        // clean up the file property as you won't need it anymore
+        $this->file = null;
+    }
 
 
     /**
@@ -128,9 +183,9 @@ class Offer
      * @param array $pricing
      * @return Offer
      */
-    public function setPricing($pricing)
+    public function setPrice($pricing)
     {
-        $this->pricing = $pricing;
+        $this->price = $pricing;
     
         return $this;
     }
@@ -140,9 +195,9 @@ class Offer
      *
      * @return array 
      */
-    public function getPricing()
+    public function getPrice()
     {
-        return $this->pricing;
+        return $this->price;
     }
 
     /**
@@ -259,4 +314,14 @@ class Offer
     {
         return $this->updatedAt;
     }
+
+    public function setFile($file){
+        $this->file = $file;
+        return $this;
+    }
+
+    public function getFile(){
+        return $this->file;
+    }
+
 }

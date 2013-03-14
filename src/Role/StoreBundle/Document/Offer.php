@@ -3,6 +3,7 @@
 namespace Role\StoreBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @MongoDB\Document
@@ -70,6 +71,54 @@ class Offer
 
     /** @MongoDB\ReferenceOne(targetDocument="Store", inversedBy="offers") */
     private $store;
+
+    /*
+     * @Assert\File(maxSize="6000000")
+    */
+    private $file;
+
+    public function getAbsolutePath()
+    {
+        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/offers';
+    }
+
+    public function upload(){
+        // the file property can be empty if the field is not required
+        if (null === $this->file) {
+            return;
+        }
+        // set the path property to the filename where you've saved the file
+        $filename = sha1(uniqid(mt_rand(), true));
+        $this->path = $filename.'.'.$this->file->guessExtension();
+        
+        $this->file->move(
+            $this->getUploadRootDir(),
+            $this->path
+        );
+        // clean up the file property as you won't need it anymore
+        $this->file = null;
+    }
 
 
     /**
@@ -266,4 +315,35 @@ class Offer
         return $this->updatedAt;
     }
 
+    public function setFile($file){
+        $this->file = $file;
+        return $this;
+    }
+
+    public function getFile(){
+        return $this->file;
+    }
+
+
+    /**
+     * Set store
+     *
+     * @param Role\StoreBundle\Document\Store $store
+     * @return \Offer
+     */
+    public function setStore(\Role\StoreBundle\Document\Store $store)
+    {
+        $this->store = $store;
+        return $this;
+    }
+
+    /**
+     * Get store
+     *
+     * @return Role\StoreBundle\Document\Store $store
+     */
+    public function getStore()
+    {
+        return $this->store;
+    }
 }

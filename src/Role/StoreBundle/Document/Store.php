@@ -209,4 +209,34 @@ class Store
     {
         return $this->user;
     }
+
+    /**
+     * Add offers
+     *
+     * @param Role\StoreBundle\Document\Offer $offers
+     */
+    public function addOffer(\Role\StoreBundle\Document\Offer $offers)
+    {
+        $this->offers[] = $offers;
+    }
+
+    /**
+    * Remove offers
+    *
+    * @param <variableType$offers
+    */
+    public function removeOffer(\Role\StoreBundle\Document\Offer $offers)
+    {
+        $this->offers->removeElement($offers);
+    }
+
+    /**
+     * Get offers
+     *
+     * @return Doctrine\Common\Collections\Collection $offers
+     */
+    public function getOffers()
+    {
+        return $this->offers;
+    }
 }

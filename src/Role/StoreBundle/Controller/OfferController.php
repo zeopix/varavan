@@ -15,7 +15,7 @@ use Role\StoreBundle\Form\OfferType;
  *
  * @Route("/ofertas")
  */
-class OfferController extends Controller
+class OfferController extends AbstractController
 {
     /**
      * Lists all Offer entities.
@@ -27,8 +27,11 @@ class OfferController extends Controller
     public function indexAction()
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $entities = $dm->getRepository('RoleStoreBundle:Offer')->findAll();
-
+        $entities = $dm->createQueryBuilder('RoleStoreBundle:Offer')->field('store.$id')->equals($this->getStore()->getId())->getQuery()->execute();
+        //$entities = $dm->getRepository('RoleStoreBundle:Offer')->findByStore($this->getStore()->getId());
+        foreach($entities as $entity){
+            die("hi");
+        }
         return array(
             'entities' => $entities,
         );
@@ -49,6 +52,8 @@ class OfferController extends Controller
 
         if ($form->isValid()) {
             $dm = $this->get('doctrine_mongodb')->getManager();
+            $entity->upload();
+            $entity->setStore($this->getStore());
             $dm->persist($entity);
             $dm->flush();
 
@@ -144,7 +149,7 @@ class OfferController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Offer entity.');
         }
-
+        $entity->upload();
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new OfferType(), $entity);
         $editForm->bind($request);

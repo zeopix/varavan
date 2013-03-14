@@ -12,11 +12,15 @@ class OfferType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('description')
-            ->add('price','money')
-            ->add('stockLimit')
-            ->add('timeLimit')
-            ->add('path')
+            ->add('description','textarea')
+            ->add('price','integer')
+            ->add('stockLimit','integer')
+            ->add('timeLimit','date',array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
+                    'attr' => array('class' => 'date')
+                ))
+            ->add('file','file',array('required'=>false))
         ;
     }
 
